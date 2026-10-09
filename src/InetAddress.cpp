@@ -10,7 +10,7 @@ InetAddress::InetAddress(const char* ip, uint16_t port): addr_len(sizeof(addr)) 
     addr.sin_family = AF_INET;
     addr.sin_addr.s_addr = inet_addr(ip);
     addr.sin_port = htons(port);
-    inet_pton(AF_INET, ip, &addr.sin_addr);
+    addr_len = sizeof(addr);
 }
 
 InetAddress::~InetAddress() {

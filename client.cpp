@@ -1,11 +1,11 @@
+#include <iostream>
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <string.h>
-#include <stdio.h>
 #include <unistd.h>
-#include "util.h"
+#include "src/util.h"
 
-#define BUFFER_SIZE 1024
+#define BUFFER_SIZE 1024 
 
 int main() {
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -17,10 +17,10 @@ int main() {
     serv_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
     serv_addr.sin_port = htons(8888);
 
-    errif(connect(sockfd, (sockaddr*)&serv_addr, sizeof(serv_addr)) == -1, "connect error");
-
+    errif(connect(sockfd, (sockaddr*)&serv_addr, sizeof(serv_addr)) == -1, "socket connect error");
+    
     while(true){
-        char buf[BUFFER_SIZE];
+        char buf[BUFFER_SIZE];  //buf大小必须大于或等于服务器端buf大小
         bzero(&buf, sizeof(buf));
         scanf("%s", buf);
         ssize_t write_bytes = write(sockfd, buf, sizeof(buf));
